@@ -1,0 +1,1660 @@
+/* =========================================
+   URC - USO REGULADO DEL CELULAR
+   DISEÑO PRINCIPAL
+========================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(0, 183, 255, 0.14), transparent 30%),
+    radial-gradient(circle at 20% 70%, rgba(80, 80, 255, 0.12), transparent 30%),
+    #050914;
+  color: #eef7ff;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+/* =========================================
+   FONDO Y PARTÍCULAS
+========================================= */
+
+#particulas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.particula {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #72dcff;
+  box-shadow:
+    0 0 8px #72dcff,
+    0 0 18px rgba(114, 220, 255, 0.7);
+  opacity: 0.7;
+  animation: flotar 8s infinite ease-in-out;
+}
+
+@keyframes flotar {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.25;
+  }
+
+  50% {
+    transform: translateY(-45px) translateX(20px);
+    opacity: 1;
+  }
+}
+
+/* =========================================
+   ONDAS LUMINOSAS
+========================================= */
+
+.ondas {
+  position: fixed;
+  width: 700px;
+  height: 700px;
+  right: -280px;
+  top: 80px;
+  border-radius: 50%;
+  border: 1px solid rgba(54, 201, 255, 0.25);
+  box-shadow:
+    0 0 40px rgba(0, 174, 255, 0.08),
+    inset 0 0 40px rgba(0, 174, 255, 0.04);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ondas::before,
+.ondas::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(71, 205, 255, 0.22);
+}
+
+.ondas::before {
+  inset: 80px;
+}
+
+.ondas::after {
+  inset: 160px;
+}
+
+/* =========================================
+   ENCABEZADO
+========================================= */
+
+.encabezado {
+  position: relative;
+  z-index: 20;
+  width: 100%;
+  padding: 22px 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(5, 9, 20, 0.7);
+  backdrop-filter: blur(15px);
+}
+
+.logo {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 22px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-shadow: 0 0 15px rgba(66, 207, 255, 0.8);
+}
+
+.navegacion {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+
+.navegacion a {
+  color: #b9d7e8;
+  text-decoration: none;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.navegacion a:hover {
+  color: #5bdcff;
+  text-shadow: 0 0 12px rgba(91, 220, 255, 0.8);
+}
+
+.menu-movil {
+  display: none;
+  border: 0;
+  background: transparent;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* =========================================
+   PORTADA
+========================================= */
+
+.portada {
+  position: relative;
+  z-index: 2;
+  min-height: 780px;
+  padding: 80px 8%;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  align-items: center;
+  gap: 50px;
+}
+
+.portada-contenido {
+  position: relative;
+  z-index: 5;
+}
+
+.sobrelinea {
+  color: #62dfff;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 4px;
+  margin-bottom: 18px;
+  text-transform: uppercase;
+}
+
+.portada h1 {
+  max-width: 750px;
+  font-size: clamp(55px, 7vw, 100px);
+  line-height: 0.95;
+  letter-spacing: -4px;
+  margin-bottom: 30px;
+}
+
+.portada h1 span {
+  color: #55d9ff;
+  text-shadow:
+    0 0 15px rgba(85, 217, 255, 0.7),
+    0 0 45px rgba(85, 217, 255, 0.25);
+}
+
+.bajada {
+  max-width: 650px;
+  color: #a8bfce;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+/* =========================================
+   BOTONES
+========================================= */
+
+.botones-portada {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 35px;
+}
+
+.boton {
+  display: inline-block;
+  padding: 14px 22px;
+  border: 1px solid rgba(103, 218, 255, 0.4);
+  border-radius: 50px;
+  color: #dff8ff;
+  text-decoration: none;
+  background: rgba(55, 192, 255, 0.05);
+  transition: 0.3s ease;
+}
+
+.boton:hover {
+  transform: translateY(-3px);
+  background: rgba(63, 205, 255, 0.13);
+  border-color: #55d9ff;
+  box-shadow: 0 0 25px rgba(55, 210, 255, 0.2);
+}
+
+.boton-principal {
+  background: linear-gradient(
+    135deg,
+    rgba(40, 190, 255, 0.25),
+    rgba(90, 80, 255, 0.2)
+  );
+  box-shadow: 0 0 25px rgba(55, 200, 255, 0.12);
+}
+
+/* =========================================
+   DATOS DE PORTADA
+========================================= */
+
+.datos-portada {
+  display: flex;
+  gap: 35px;
+  margin-top: 55px;
+}
+
+.datos-portada div {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.datos-portada strong {
+  color: #65dcff;
+  font-size: 24px;
+}
+
+.datos-portada span {
+  color: #8299a8;
+  font-size: 12px;
+}
+
+/* =========================================
+   TELÉFONO DECORATIVO
+========================================= */
+
+.portada-visual {
+  position: relative;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.telefono {
+  position: relative;
+  z-index: 5;
+  width: 245px;
+  height: 475px;
+  padding: 10px;
+  border-radius: 38px;
+  background: linear-gradient(145deg, #18283a, #05080f);
+  border: 2px solid rgba(135, 224, 255, 0.55);
+  box-shadow:
+    0 0 25px rgba(40, 202, 255, 0.35),
+    0 0 90px rgba(40, 202, 255, 0.12),
+    inset 0 0 25px rgba(255, 255, 255, 0.04);
+  transform: rotate(5deg);
+}
+
+.telefono-camara {
+  position: absolute;
+  width: 65px;
+  height: 8px;
+  left: 50%;
+  top: 13px;
+  transform: translateX(-50%);
+  border-radius: 10px;
+  background: #03070c;
+  z-index: 10;
+}
+
+.pantalla-telefono {
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
+  padding: 90px 25px 25px;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(67, 207, 255, 0.3), transparent 25%),
+    linear-gradient(160deg, #0d2539, #060b15);
+}
+
+.simbolo-telefono {
+  display: block;
+  color: #61ddff;
+  font-size: 55px;
+  text-shadow: 0 0 25px #36cfff;
+  margin-bottom: 20px;
+}
+
+.pantalla-telefono h3 {
+  font-size: 32px;
+  letter-spacing: 5px;
+}
+
+.pantalla-telefono p {
+  color: #89aabd;
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+.barra-telefono {
+  height: 7px;
+  margin-top: 35px;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #36d5ff, #706dff);
+  box-shadow: 0 0 12px rgba(53, 208, 255, 0.5);
+}
+
+.barra-telefono.corta {
+  width: 65%;
+  margin-top: 12px;
+}
+
+.circulo-telefono {
+  width: 65px;
+  height: 65px;
+  margin: 45px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #64ddff;
+  font-size: 30px;
+  border: 1px solid rgba(96, 220, 255, 0.5);
+  box-shadow: 0 0 25px rgba(65, 213, 255, 0.2);
+}
+
+/* =========================================
+   AROS
+========================================= */
+
+.aro {
+  position: absolute;
+  border: 1px solid rgba(68, 210, 255, 0.2);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.aro-uno {
+  width: 500px;
+  height: 500px;
+  animation: girar 20s linear infinite;
+}
+
+.aro-dos {
+  width: 620px;
+  height: 620px;
+  border-style: dashed;
+  animation: girar-reves 30s linear infinite;
+}
+
+@keyframes girar {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes girar-reves {
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+/* =========================================
+   ELEMENTOS FLOTANTES
+========================================= */
+
+.figura-luminosa {
+  position: absolute;
+  top: 90px;
+  right: 80px;
+  color: #65dcff;
+  font-size: 45px;
+  text-shadow: 0 0 30px #48d8ff;
+  animation: pulso 3s infinite ease-in-out;
+}
+
+.burbuja {
+  position: absolute;
+  padding: 10px 16px;
+  border: 1px solid rgba(100, 220, 255, 0.25);
+  border-radius: 30px;
+  color: #bcecff;
+  font-size: 12px;
+  background: rgba(18, 41, 59, 0.7);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 20px rgba(48, 203, 255, 0.1);
+}
+
+.burbuja-uno {
+  top: 150px;
+  left: 10px;
+}
+
+.burbuja-dos {
+  bottom: 140px;
+  right: 0;
+}
+
+.planta {
+  position: absolute;
+  color: #55dfff;
+  font-size: 70px;
+  opacity: 0.45;
+  text-shadow: 0 0 25px #31d4ff;
+}
+
+.planta-uno {
+  left: 20px;
+  bottom: 55px;
+  transform: rotate(-20deg);
+}
+
+.planta-dos {
+  right: 30px;
+  top: 65px;
+  transform: rotate(25deg);
+}
+
+@keyframes pulso {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* =========================================
+   SECCIONES
+========================================= */
+
+.seccion {
+  position: relative;
+  z-index: 2;
+  width: min(1150px, 90%);
+  margin: 0 auto;
+  padding: 110px 0;
+}
+
+.seccion h2 {
+  max-width: 850px;
+  margin-bottom: 25px;
+  font-size: clamp(35px, 5vw, 65px);
+  line-height: 1;
+}
+
+.texto-seccion {
+  max-width: 800px;
+  color: #a6bbc9;
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.frase-destacada {
+  max-width: 900px;
+  margin-top: 45px;
+  padding: 30px;
+  border-left: 3px solid #4ddcff;
+  border-radius: 0 15px 15px 0;
+  color: #d8f6ff;
+  font-size: 20px;
+  line-height: 1.6;
+  background: linear-gradient(
+    90deg,
+    rgba(51, 203, 255, 0.08),
+    transparent
+  );
+}
+
+/* =========================================
+   TARJETAS
+========================================= */
+
+.contenido-interior {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-top: 45px;
+}
+
+.tarjeta {
+  position: relative;
+  padding: 30px;
+  border: 1px solid rgba(118, 205, 255, 0.14);
+  border-radius: 22px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(29, 57, 80, 0.42),
+      rgba(7, 14, 25, 0.8)
+    );
+  backdrop-filter: blur(12px);
+  overflow: hidden;
+  transition: 0.4s ease;
+}
+
+.tarjeta::before {
+  content: "";
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  right: -70px;
+  top: -70px;
+  border-radius: 50%;
+  background: rgba(48, 203, 255, 0.12);
+  filter: blur(10px);
+}
+
+.tarjeta:hover {
+  transform: translateY(-8px);
+  border-color: rgba(81, 215, 255, 0.5);
+  box-shadow:
+    0 15px 45px rgba(0, 0, 0, 0.3),
+    0 0 30px rgba(48, 202, 255, 0.08);
+}
+
+.icono-tarjeta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 22px;
+  border-radius: 15px;
+  color: #5fdcff;
+  font-size: 23px;
+  background: rgba(66, 207, 255, 0.1);
+  border: 1px solid rgba(80, 211, 255, 0.25);
+  box-shadow: 0 0 20px rgba(57, 202, 255, 0.1);
+}
+
+.tarjeta h3 {
+  margin-bottom: 14px;
+  font-size: 21px;
+}
+
+.tarjeta p {
+  color: #9eb4c2;
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.enlace-tarjeta {
+  display: inline-block;
+  margin-top: 22px;
+  color: #5edbff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.enlace-tarjeta:hover {
+  text-shadow: 0 0 12px #55d9ff;
+}
+
+/* =========================================
+   REFLEXIÓN
+========================================= */
+
+.reflexion {
+  text-align: center;
+}
+
+.reflexion h2 {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.reflexion .texto-seccion {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;
+}
+
+/* =========================================
+   PÁGINAS INTERIORES
+========================================= */
+
+.pagina-interior {
+  position: relative;
+  z-index: 2;
+  width: min(1100px, 90%);
+  margin: auto;
+  padding: 100px 0;
+}
+
+.pagina-interior h1 {
+  font-size: clamp(45px, 7vw, 80px);
+  line-height: 1;
+  margin-bottom: 25px;
+}
+
+.pagina-interior h1 span {
+  color: #5edcff;
+  text-shadow: 0 0 25px rgba(76, 216, 255, 0.4);
+}
+
+.pagina-interior .bajada {
+  margin-bottom: 50px;
+}
+
+/* =========================================
+   NAVEGACIÓN INFERIOR
+========================================= */
+
+.navegacion-inferior {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 60px;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.pie {
+  position: relative;
+  z-index: 3;
+  padding: 45px 7%;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(3, 7, 14, 0.8);
+  text-align: center;
+}
+
+.pie p {
+  margin-top: 10px;
+  color: #718796;
+  font-size: 13px;
+}
+
+/* =========================================
+   ANIMACIÓN DE APARICIÓN
+========================================= */
+
+.aparecer {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.aparecer.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================================
+   RESPONSIVE - CELULAR
+========================================= */
+
+@media (max-width: 900px) {
+
+  .navegacion {
+    display: none;
+    position: absolute;
+    top: 75px;
+    left: 5%;
+    right: 5%;
+    padding: 20px;
+    flex-direction: column;
+    border: 1px solid rgba(90, 210, 255, 0.2);
+    border-radius: 20px;
+    background: rgba(5, 12, 23, 0.96);
+    backdrop-filter: blur(15px);
+  }
+
+  .navegacion.activo {
+    display: flex;
+  }
+
+  .menu-movil {
+    display: block;
+  }
+
+  .portada {
+    grid-template-columns: 1fr;
+    padding-top: 60px;
+  }
+
+  .portada-visual {
+    height: 500px;
+  }
+
+  .contenido-interior {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+
+  .encabezado {
+    padding: 18px 5%;
+  }
+
+  .portada {
+    padding: 55px 6%;
+    min-height: auto;
+  }
+
+  .portada h1 {
+    font-size: 55px;
+    letter-spacing: -3px;
+  }
+
+  .bajada {
+    font-size: 15px;
+  }
+
+  .datos-portada {
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+
+  .portada-visual {
+    height: 470px;
+  }
+
+  .telefono {
+    width: 205px;
+    height: 400px;
+  }
+
+  .aro-uno {
+    width: 400px;
+    height: 400px;
+  }
+
+  .aro-dos {
+    width: 470px;
+    height: 470px;
+  }
+
+  .burbuja-uno {
+    left: 0;
+  }
+
+  .contenido-interior {
+    grid-template-columns: 1fr;
+  }
+
+  .seccion {
+    padding: 75px 0;
+  }
+
+  .seccion h2 {
+    font-size: 40px;
+  }
+
+  .pagina-interior {
+    padding: 70px 0;
+  }
+
+  .navegacion-inferior {
+    flex-direction: column;
+  }
+
+  .navegacion-inferior .boton {
+    text-align: center;
+  }
+}
+/* =========================================
+   ENCUESTA - DISEÑO FUTURISTA
+========================================= */
+
+.encuesta-seccion {
+  position: relative;
+  z-index: 2;
+}
+
+/* Contenedor general */
+.encuesta {
+  width: min(850px, 100%);
+  margin: 50px auto 0;
+}
+
+/* Cada pregunta */
+.pregunta {
+  position: relative;
+  margin-bottom: 28px;
+  padding: 30px;
+  border: 1px solid rgba(80, 215, 255, 0.22);
+  border-radius: 24px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(24, 52, 76, 0.75),
+      rgba(5, 13, 25, 0.92)
+    );
+  box-shadow:
+    0 15px 40px rgba(0, 0, 0, 0.25),
+    inset 0 0 30px rgba(70, 210, 255, 0.025);
+  overflow: hidden;
+  transition: 0.35s ease;
+}
+
+/* Brillo decorativo */
+.pregunta::before {
+  content: "";
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  top: -100px;
+  right: -70px;
+  border-radius: 50%;
+  background: rgba(55, 210, 255, 0.13);
+  filter: blur(20px);
+  pointer-events: none;
+}
+
+.pregunta:hover {
+  transform: translateY(-5px);
+  border-color: rgba(80, 220, 255, 0.5);
+  box-shadow:
+    0 20px 45px rgba(0, 0, 0, 0.35),
+    0 0 30px rgba(50, 205, 255, 0.1);
+}
+
+/* Título de cada pregunta */
+.pregunta h3 {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 22px;
+  color: #f0faff;
+  font-size: 19px;
+  line-height: 1.5;
+}
+
+/* Opciones */
+.pregunta label {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  margin: 11px 0;
+  padding: 15px 18px;
+  border: 1px solid rgba(130, 210, 235, 0.1);
+  border-radius: 15px;
+  color: #b9ceda;
+  background: rgba(255, 255, 255, 0.025);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* Hover de las opciones */
+.pregunta label:hover {
+  color: #e9fbff;
+  border-color: rgba(70, 215, 255, 0.4);
+  background: rgba(50, 205, 255, 0.08);
+  transform: translateX(5px);
+}
+
+/* Radio */
+.pregunta input[type="radio"] {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  margin-right: 13px;
+  flex-shrink: 0;
+  border: 2px solid #5bbfd9;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+/* Radio seleccionado */
+.pregunta input[type="radio"]:checked {
+  border-color: #55ddff;
+  background:
+    radial-gradient(
+      circle,
+      #55ddff 0 40%,
+      transparent 45%
+    );
+  box-shadow:
+    0 0 10px rgba(85, 221, 255, 0.8),
+    0 0 20px rgba(85, 221, 255, 0.25);
+}
+
+/* Opción seleccionada */
+.pregunta label:has(input:checked) {
+  color: #ecfcff;
+  border-color: rgba(75, 220, 255, 0.55);
+  background: rgba(50, 210, 255, 0.1);
+  box-shadow:
+    inset 0 0 20px rgba(50, 210, 255, 0.04),
+    0 0 15px rgba(50, 210, 255, 0.08);
+}
+
+/* Botón enviar */
+.encuesta .boton {
+  display: block;
+  margin: 35px auto 0;
+  padding: 16px 30px;
+  border: 1px solid rgba(80, 220, 255, 0.55);
+  border-radius: 50px;
+  color: white;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(30, 190, 255, 0.28),
+      rgba(100, 80, 255, 0.25)
+    );
+  box-shadow:
+    0 0 25px rgba(50, 205, 255, 0.15);
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.encuesta .boton:hover {
+  transform: translateY(-4px) scale(1.02);
+  border-color: #5bdfff;
+  box-shadow:
+    0 0 25px rgba(70, 215, 255, 0.35),
+    0 0 60px rgba(70, 215, 255, 0.1);
+}
+
+/* Mensaje después de enviar */
+.mensaje-encuesta {
+  margin: 30px auto;
+  padding: 15px 20px;
+  max-width: 600px;
+  border: 1px solid rgba(70, 220, 255, 0.25);
+  border-radius: 15px;
+  color: #6de2ff;
+  text-align: center;
+  background: rgba(50, 205, 255, 0.06);
+  box-shadow: 0 0 25px rgba(50, 205, 255, 0.08);
+}
+
+/* =========================================
+   RESULTADOS
+========================================= */
+
+.resultados-encuesta {
+  display: none;
+  width: min(850px, 100%);
+  margin: 75px auto 0;
+  padding: 45px 30px;
+  border-top: 1px solid rgba(90, 215, 255, 0.15);
+}
+
+.resultados-encuesta h2 {
+  margin-bottom: 40px;
+}
+
+/* Cada resultado */
+.resultado-pregunta {
+  margin-bottom: 35px;
+  padding: 25px;
+  border: 1px solid rgba(100, 210, 240, 0.12);
+  border-radius: 20px;
+  background: rgba(12, 25, 39, 0.7);
+}
+
+.resultado-pregunta h3 {
+  margin-bottom: 22px;
+  color: #e9faff;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+/* Opción del resultado */
+.resultado-opcion {
+  margin: 17px 0;
+}
+
+/* Texto y porcentaje */
+.resultado-texto {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 8px;
+  color: #abc2cf;
+  font-size: 14px;
+}
+
+/* Porcentaje */
+.resultado-texto span:last-child {
+  color: #63ddff;
+  font-weight: bold;
+}
+
+/* Barra */
+.barra-resultado {
+  width: 100%;
+  height: 10px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Barra llena */
+.barra-resultado span {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: 20px;
+  background: linear-gradient(
+    90deg,
+    #35d8ff,
+    #716cff
+  );
+  box-shadow:
+    0 0 12px rgba(55, 215, 255, 0.55);
+  transition: width 1.2s ease;
+}
+
+/* =========================================
+   MÓVIL
+========================================= */
+
+@media (max-width: 600px) {
+
+  .encuesta {
+    margin-top: 35px;
+  }
+
+  .pregunta {
+    padding: 22px 18px;
+    border-radius: 20px;
+  }
+
+  .pregunta h3 {
+    font-size: 16px;
+  }
+
+  .pregunta label {
+    padding: 13px;
+    font-size: 14px;
+  }
+
+  .resultados-encuesta {
+    padding: 35px 10px;
+  }
+
+  .resultado-pregunta {
+    padding: 20px 16px;
+  }
+}
+/* =========================================
+   CELULAR FUTURISTA - PANTALLA URC
+========================================= */
+
+.telefono {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Pantalla interior */
+
+.telefono-pantalla {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 430px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  border-radius: 34px;
+
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      rgba(45, 190, 255, 0.22),
+      transparent 35%
+    ),
+    linear-gradient(
+      145deg,
+      #102d66,
+      #07162f 55%,
+      #040b19
+    );
+
+  box-shadow:
+    inset 0 0 35px rgba(70, 210, 255, 0.12),
+    inset 0 -40px 80px rgba(0, 0, 0, 0.3);
+}
+
+
+/* Brillo alrededor de la pantalla */
+
+.telefono-pantalla::before {
+  content: "";
+  position: absolute;
+
+  width: 170px;
+  height: 170px;
+
+  top: 55px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  border-radius: 50%;
+
+  background: rgba(40, 210, 255, 0.16);
+
+  filter: blur(35px);
+
+  pointer-events: none;
+}
+
+
+/* Brillo inferior */
+
+.telefono-pantalla::after {
+  content: "";
+
+  position: absolute;
+
+  width: 220px;
+  height: 80px;
+
+  bottom: -35px;
+
+  border-radius: 50%;
+
+  background: rgba(45, 200, 255, 0.12);
+
+  filter: blur(25px);
+
+  pointer-events: none;
+}
+
+
+/* Cámara / notch */
+
+.telefono-notch {
+  position: absolute;
+
+  top: 18px;
+
+  width: 65px;
+  height: 7px;
+
+  border-radius: 20px;
+
+  background: #020712;
+
+  opacity: 0.85;
+}
+
+
+/* Icono superior */
+
+.urc-icono {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 48px;
+  height: 48px;
+
+  margin-bottom: 20px;
+
+  border: 2px solid #58e3ff;
+
+  border-radius: 10px;
+
+  color: #72eaff;
+
+  font-size: 25px;
+
+  text-shadow:
+    0 0 8px #4ddfff,
+    0 0 20px rgba(70, 220, 255, 0.8);
+
+  box-shadow:
+    0 0 15px rgba(70, 220, 255, 0.5),
+    inset 0 0 15px rgba(70, 220, 255, 0.1);
+}
+
+
+/* Título URC */
+
+.telefono-pantalla h3 {
+  position: relative;
+  z-index: 2;
+
+  margin: 0;
+
+  color: white;
+
+  font-size: 34px;
+  font-weight: 800;
+
+  letter-spacing: 3px;
+
+  text-shadow:
+    0 0 10px rgba(255,255,255,0.45),
+    0 0 25px rgba(60,210,255,0.3);
+}
+
+
+/* Texto pequeño */
+
+.telefono-pantalla p {
+  position: relative;
+  z-index: 2;
+
+  margin: 8px 0 24px;
+
+  color: #b9d9e8;
+
+  font-size: 11px;
+
+  letter-spacing: 0.5px;
+
+  text-align: center;
+}
+
+
+/* Líneas luminosas */
+
+.lineas-urc {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+
+  width: 110px;
+}
+
+.lineas-urc span {
+  display: block;
+
+  height: 5px;
+
+  border-radius: 20px;
+
+  background: linear-gradient(
+    90deg,
+    #21dfff,
+    #6b8cff
+  );
+
+  box-shadow:
+    0 0 8px rgba(45, 220, 255, 0.8),
+    0 0 18px rgba(45, 220, 255, 0.4);
+}
+
+.lineas-urc span:nth-child(2) {
+  width: 75px;
+  align-self: center;
+}
+
+
+/* Círculo con palomita */
+
+.boton-check {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 58px;
+  height: 58px;
+
+  margin-top: 30px;
+
+  border: 2px solid rgba(80, 220, 255, 0.8);
+
+  border-radius: 50%;
+
+  color: #6ce6ff;
+
+  font-size: 26px;
+  font-weight: bold;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(50, 210, 255, 0.2),
+      rgba(5, 20, 40, 0.5)
+    );
+
+  box-shadow:
+    0 0 12px rgba(60, 220, 255, 0.7),
+    inset 0 0 15px rgba(60, 220, 255, 0.15);
+
+  text-shadow:
+    0 0 10px rgba(70, 225, 255, 0.9);
+}
+
+
+/* Animación suave del contenido */
+
+.urc-icono {
+  animation: brilloURC 3s ease-in-out infinite;
+}
+
+.boton-check {
+  animation: pulsoURC 3s ease-in-out infinite;
+}
+
+@keyframes brilloURC {
+
+  0%, 100% {
+    box-shadow:
+      0 0 15px rgba(70, 220, 255, 0.4),
+      inset 0 0 15px rgba(70, 220, 255, 0.1);
+  }
+
+  50% {
+    box-shadow:
+      0 0 25px rgba(70, 220, 255, 0.8),
+      0 0 45px rgba(70, 220, 255, 0.25),
+      inset 0 0 20px rgba(70, 220, 255, 0.15);
+  }
+
+}
+
+@keyframes pulsoURC {
+
+  0%, 100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.06);
+  }
+
+}
+
+
+/* Adaptación para celular */
+
+@media (max-width: 600px) {
+
+  .telefono-pantalla {
+    min-height: 360px;
+    border-radius: 28px;
+  }
+
+  .urc-icono {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .telefono-pantalla h3 {
+    font-size: 27px;
+  }
+
+  .telefono-pantalla p {
+    font-size: 10px;
+  }
+
+}
+/* =====================================
+🎵 DECORACIÓN DEL REPRODUCTOR DE AUDIO
+Colores: amarillo, blanco y dorado
+===================================== */
+
+audio {
+display: block;
+width: 100%;
+max-width: 450px;
+margin: 25px auto;
+padding: 12px;
+
+background-color: #fffbea;
+border: 2px solid #d4af37;
+border-radius: 20px;
+
+box-shadow: 0 6px 18px rgba(212, 175, 55, 0.22);
+
+transition: all 0.3s ease;
+
+}
+
+/* ✨ Efecto al pasar el cursor */
+
+audio:hover {
+border-color: #b8952e;
+box-shadow: 0 8px 24px rgba(212, 175, 55, 0.35);
+}
+
+/* 📱 Adaptación para celulares */
+
+@media (max-width: 600px) {
+audio {
+width: 95%;
+max-width: 100%;
+margin: 20px auto;
+padding: 8px;
+}
+}
+/* ✨ CONTENEDOR DEL BOTÓN */
+.regresar-inicio {
+display: flex;
+justify-content: center;
+align-items: center;
+margin: 35px auto;
+padding: 20px;
+}
+
+/* 💛 BOTÓN VOLVER AL INICIO */
+.boton-inicio {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+gap: 10px;
+
+padding: 15px 30px;
+
+background: linear-gradient(135deg, #ffe680, #d4af37);
+color: #ffffff;
+
+font-size: 16px;
+font-weight: bold;
+text-decoration: none;
+letter-spacing: 0.5px;
+
+border: 2px solid #f5df91;
+border-radius: 50px;
+
+box-shadow: 0 6px 18px rgba(212, 175, 55, 0.3);
+
+transition: all 0.3s ease;
+
+}
+
+/* 🌟 EFECTO AL PASAR EL CURSOR */
+.boton-inicio:hover {
+background: linear-gradient(135deg, #d4af37, #b8952e);
+color: #ffffff;
+transform: translateY(-4px) scale(1.03);
+box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+}
+
+/* 📱 ADAPTACIÓN PARA CELULARES */
+@media (max-width: 600px) {
+.boton-inicio {
+padding: 12px 22px;
+font-size: 14px;
+}
+}
+/* RECUADRO RECTANGULAR DE CRÉDITOS */
+
+.creditos-equipo {
+    width: 85%;
+    max-width: 760px;
+    margin: 30px auto 20px;
+    padding: 22px 18px;
+    box-sizing: border-box;
+    text-align: center;
+
+    background: linear-gradient(
+        135deg,
+        #102e59,
+        #174c83
+    );
+
+    border: 1.5px solid #73caff;
+    border-radius: 12px;
+
+    box-shadow: 0 4px 15px rgba(65, 174, 255, 0.18);
+}
+
+/* TÍTULO MÁS COMPACTO */
+
+.creditos-equipo h2 {
+    font-size: 23px;
+    margin: 10px 0;
+    color: #ffffff;
+}
+
+/* BURBUJAS MÁS PEQUEÑAS */
+
+.burbujas-integrantes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin: 20px auto;
+}
+
+.burbuja-nombre {
+    width: 112px;
+    height: 112px;
+    padding: 10px;
+    box-sizing: border-box;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+
+    background: radial-gradient(
+        circle at 30% 25%,
+        #ffffff,
+        #d8f0ff 65%,
+        #8acaff
+    );
+
+    color: #124675;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 1.4;
+
+    box-shadow: 0 3px 10px rgba(110, 198, 255, 0.2);
+}
+
+/* INFORMACIÓN FINAL */
+
+.creditos-equipo .proyecto {
+    color: #8ed5ff;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    margin-top: 18px;
+}
+
+.creditos-equipo .tema-proyecto {
+    color: #ffffff;
+    font-size: 13px;
+    margin-top: 8px;
+}
+
+/* ADORNOS */
+
+.creditos-equipo .adorno-creditos {
+    color: #9cddff;
+    font-size: 19px;
+    margin: 6px 0;
+}
+
+/* CELULARES */
+
+@media (max-width: 600px) {
+    .creditos-equipo {
+        width: 92%;
+        padding: 20px 10px;
+    }
+
+    .creditos-equipo h2 {
+        font-size: 20px;
+    }
+
+    .burbuja-nombre {
+        width: 100px;
+        height: 100px;
+        font-size: 12px;
+    }
+}
+/* ✨ BORDE LUMINOSO ALREDEDOR DE TODA LA PÁGINA */
+
+body {
+    position: relative;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+/* CONTORNO AZUL NEÓN */
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 5px;
+
+    border: 2px solid #55caff;
+    border-radius: 12px;
+
+    box-shadow:
+        0 0 6px #55caff,
+        inset 0 0 6px rgba(85, 202, 255, 0.25),
+        0 0 14px rgba(85, 202, 255, 0.7),
+        0 0 28px rgba(37, 132, 216, 0.4);
+
+    pointer-events: none;
+    z-index: 9999;
+
+    animation: contornoAzul 3s ease-in-out infinite alternate;
+}
+
+/* BRILLO QUE RESPIRA */
+
+@keyframes contornoAzul {
+    from {
+        box-shadow:
+            0 0 5px #55caff,
+            inset 0 0 4px rgba(85, 202, 255, 0.2),
+            0 0 12px rgba(85, 202, 255, 0.45);
+    }
+
+    to {
+        box-shadow:
+            0 0 9px #8de0ff,
+            inset 0 0 8px rgba(85, 202, 255, 0.3),
+            0 0 25px rgba(85, 202, 255, 0.85);
+    }
+}

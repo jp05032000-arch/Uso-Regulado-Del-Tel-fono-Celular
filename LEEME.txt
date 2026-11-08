@@ -1,0 +1,47 @@
+PROYECTO: USO REGULADO DEL CELULAR
+
+ARCHIVOS DEL PROYECTO
+
+1. index.html
+   Página principal y portada.
+
+2. style.css
+   Diseño visual, colores, ondas, tarjetas y animaciones.
+
+3. consecuencias.html
+   Información sobre las consecuencias del uso excesivo.
+
+4. impacto.html
+   Información sobre el impacto psicológico.
+
+5. recomendaciones.html
+   Consejos y hábitos digitales saludables.
+
+6. m.html
+   Información adicional sobre cultura digital.
+
+7. video.html
+   Página para reproducir un video educativo.
+
+8. script.js
+   Partículas animadas y menú interactivo.
+
+INSTRUCCIONES
+
+1. Guarda todos los archivos en la misma carpeta.
+2. Respeta los nombres de los archivos.
+3. Abre index.html para entrar a la página principal.
+4. Los enlaces del menú permiten navegar entre las páginas.
+5. Para mostrar el video, agrega un archivo llamado
+   uso-responsable.mp4 en la misma carpeta.
+6. Se necesita conexión a internet para descargar la fuente
+   tipográfica de Google Fonts. Sin conexión, se utilizará
+   la fuente alternativa del navegador.
+
+IMPORTANTE
+
+No abras los archivos CSS o JavaScript como si fueran
+páginas web. Debes enlazarlos desde los archivos HTML.
+
+PROYECTO EDUCATIVO:
+USO REGULADO DEL CELULAR
