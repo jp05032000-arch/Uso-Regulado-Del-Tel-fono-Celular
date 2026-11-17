@@ -1707,3 +1707,70 @@ img, video, iframe {
         height: auto;
     }
 }
+
+/* =================================
+   AJUSTE DEL MENU PARA CELULARES
+================================= */
+
+@media (max-width: 600px) {
+
+  .encabezado {
+    width: 100%;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  .menu-movil {
+    display: block;
+    font-size: 26px;
+    cursor: pointer;
+    z-index: 1001;
+  }
+
+  .navegacion {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 12px;
+    right: 12px;
+    width: auto;
+    max-width: calc(100vw - 24px);
+    padding: 18px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    background: rgba(5, 20, 40, 0.97);
+    border: 1px solid rgba(90, 210, 255, 0.35);
+    border-radius: 16px;
+    z-index: 1000;
+    box-sizing: border-box;
+  }
+
+  .navegacion.abierto {
+    display: flex;
+  }
+
+  .navegacion a {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    text-align: center;
+    box-sizing: border-box;
+    font-size: 15px;
+  }
+}
+
+/* TABLETS */
+
+@media (min-width: 601px) and (max-width: 900px) {
+
+  .navegacion.abierto {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+}
