@@ -1657,4 +1657,53 @@ body::after {
             inset 0 0 8px rgba(85, 202, 255, 0.3),
             0 0 25px rgba(85, 202, 255, 0.85);
     }
+}  
+
+/* ===== ADAPTACIÓN PARA CELULARES ===== */
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+img, video, iframe {
+    max-width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+
+    body {
+        width: 100%;
+        font-size: 16px;
+    }
+
+    h1 {
+        font-size: clamp(27px, 8vw, 40px);
+        line-height: 1.2;
+    }
+
+    h2 {
+        font-size: clamp(23px, 6vw, 32px);
+    }
+
+    p {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    button, input, select, textarea {
+        max-width: 100%;
+    }
+
+    .tarjeta {
+        max-width: 100%;
+    }
+
+    img {
+        height: auto;
+    }
 }
